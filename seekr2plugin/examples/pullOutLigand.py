@@ -2,7 +2,7 @@ from simtk.openmm.app import *
 from simtk.openmm import *
 from simtk.unit import *
 from sys import stdout
-from mmvtplugin import MmvtLangevinIntegrator, vectori, vectord
+from mmvtplugin import MmvtLangevinMiddleIntegrator, vectori, vectord
 import mmvtplugin
 from time import time
 import numpy as np
@@ -64,7 +64,7 @@ def run_steps(inner_radius, outer_radius, crossings_file_name, save_state_filena
     myforce2.addBond([mygroup1b, mygroup2b], [1.0e-9*kilojoules_per_mole, outer_radius*angstroms])
     forcenum2 = system.addForce(myforce2)
 
-    integrator = MmvtLangevinIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, crossings_file_name)
+    integrator = MmvtLangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, crossings_file_name)
     integrator.addMilestoneGroup(1)
     integrator.addMilestoneGroup(2)
     integrator.setSaveStateFileName(save_state_filename)

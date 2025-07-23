@@ -2,7 +2,7 @@ from simtk.openmm.app import *
 from simtk.openmm import *
 from simtk.unit import *
 from sys import stdout
-from seekr2plugin import MmvtLangevinIntegrator, vectori, vectord
+from seekr2plugin import MmvtLangevinMiddleIntegrator, vectori, vectord
 import seekr2plugin
 from time import time
 import numpy as np
@@ -42,7 +42,7 @@ myforce2.addPerBondParameter('ref_angle')
 myforce2.addBond([mygroup1b, mygroup2b, mygroup3b], [1.0e-9*kilojoules_per_mole, radians*np.pi*17.0/18.0])
 forcenum2 = system.addForce(myforce2)
 '''
-integrator = MmvtLangevinIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, "pyro_output.txt")
+integrator = MmvtLangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, "pyro_output.txt")
 integrator.addMilestoneGroup(1)
 #integrator.addMilestoneGroup(2)
 

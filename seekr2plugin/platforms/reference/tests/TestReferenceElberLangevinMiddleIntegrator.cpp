@@ -34,7 +34,7 @@
  * -------------------------------------------------------------------------- */
 
 /**
- * This tests the Reference implementation of ElberLangevinIntegrator.
+ * This tests the Reference implementation of ElberLangevinMiddleIntegrator.
  */
 
 #include "ElberLangevinMiddleIntegrator.h"

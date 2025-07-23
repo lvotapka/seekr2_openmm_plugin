@@ -50,8 +50,6 @@ extern "C" OPENMM_EXPORT void registerKernelFactories() {
         Platform& platform = Platform::getPlatform(i);
         if (dynamic_cast<ReferencePlatform*>(&platform) != NULL) {
             ReferenceSeekr2KernelFactory* factory = new ReferenceSeekr2KernelFactory();
-            platform.registerKernelFactory(IntegrateMmvtLangevinStepKernel::Name(), factory);
-            platform.registerKernelFactory(IntegrateElberLangevinStepKernel::Name(), factory);
             platform.registerKernelFactory(IntegrateMmvtLangevinMiddleStepKernel::Name(), factory);
             platform.registerKernelFactory(IntegrateElberLangevinMiddleStepKernel::Name(), factory);
         }
@@ -64,10 +62,6 @@ extern "C" OPENMM_EXPORT void registerSeekr2ReferenceKernelFactories() {
 
 KernelImpl* ReferenceSeekr2KernelFactory::createKernelImpl(std::string name, const Platform& platform, ContextImpl& context) const {
     ReferencePlatform::PlatformData& data = *static_cast<ReferencePlatform::PlatformData*>(context.getPlatformData());
-    if (name == IntegrateMmvtLangevinStepKernel::Name())
-        return new ReferenceIntegrateMmvtLangevinStepKernel(name, platform, data);
-    if (name == IntegrateElberLangevinStepKernel::Name())
-        return new ReferenceIntegrateElberLangevinStepKernel(name, platform, data);
     if (name == IntegrateMmvtLangevinMiddleStepKernel::Name())
         return new ReferenceIntegrateMmvtLangevinMiddleStepKernel(name, platform, data);
     if (name == IntegrateElberLangevinMiddleStepKernel::Name())
