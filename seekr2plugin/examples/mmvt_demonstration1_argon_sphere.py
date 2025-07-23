@@ -3,7 +3,10 @@ from simtk.openmm import *
 from simtk.unit import *
 from sys import stdout
 from seekr2plugin import MmvtLangevinMiddleIntegrator, vectori, vectord
-import seekr2plugin
+#from seekr2plugin import ElberLangevinMiddleIntegrator, vectori, vectord
+#from seekr2plugin import MmvtLangevinIntegrator, vectori, vectord
+#import seekr2plugin
+#from exampleplugin import ExampleForce
 from time import time
 import numpy as np
 import os
@@ -67,12 +70,28 @@ myforce.addPerBondParameter('radius')
 myforce.addBond([mygroup1], [1.0e-9*kilojoules_per_mole, 12.0*angstroms, 12.0*angstroms, 12.0*angstroms, 10.0*angstroms])
 forcenum = system.addForce(myforce)
 
+#myforceb = CustomCentroidBondForce(1, "k*((x1-centerx)^2 + (y1-centery)^2 + (z1-centerz)^2 - radius^2)")
+#mygroup2 = myforceb.addGroup([0]) # atom index 0
+#myforceb.setForceGroup(2)
+#myforceb.addPerBondParameter('k')
+#myforceb.addPerBondParameter('centerx')
+#myforceb.addPerBondParameter('centery')
+#myforceb.addPerBondParameter('centerz')
+#myforceb.addPerBondParameter('radius')
+#myforceb.addBond([mygroup1], [1.0e-9*kilojoules_per_mole, 12.0*angstroms, 12.0*angstroms, 12.0*angstroms, 20.0*angstroms])
+#forcenum = system.addForce(myforceb)
+
+#integrator = ElberLangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, "test_filename.txt")
 integrator = MmvtLangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, "test_filename.txt")
+#integrator.addSrcMilestoneGroup(1) # add source milestone group
+#integrator.addDestMilestoneGroup(2) # add destination milestone group
 integrator.addMilestoneGroup(1)
+#integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds)
 
 platform = Platform.getPlatformByName('CUDA')
+ref_platform = Platform.getPlatformByName("Reference")
 properties = {'CudaDeviceIndex': '0', 'CudaPrecision': 'mixed'} # CUDA platform
-context = Context(system, integrator)
+context = Context(system, integrator, ref_platform)
 context.setPositions(positions)
 context.setVelocitiesToTemperature(300*kelvin)
 LocalEnergyMinimizer.minimize(context)

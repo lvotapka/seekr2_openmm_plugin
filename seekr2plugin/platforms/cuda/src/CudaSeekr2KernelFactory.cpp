@@ -50,8 +50,8 @@ extern "C" OPENMM_EXPORT void registerKernelFactories() {
     try {
         Platform& platform = Platform::getPlatformByName("CUDA");
         CudaSeekr2KernelFactory* factory = new CudaSeekr2KernelFactory();
-        platform.registerKernelFactory(IntegrateMmvtLangevinStepKernel::Name(), factory);
-        platform.registerKernelFactory(IntegrateElberLangevinStepKernel::Name(), factory);
+        //platform.registerKernelFactory(IntegrateMmvtLangevinStepKernel::Name(), factory);
+        //platform.registerKernelFactory(IntegrateElberLangevinStepKernel::Name(), factory);
         platform.registerKernelFactory(IntegrateMmvtLangevinMiddleStepKernel::Name(), factory);
         platform.registerKernelFactory(IntegrateElberLangevinMiddleStepKernel::Name(), factory);
     }
@@ -72,10 +72,10 @@ extern "C" OPENMM_EXPORT void registerSeekr2CudaKernelFactories() {
 
 KernelImpl* CudaSeekr2KernelFactory::createKernelImpl(std::string name, const Platform& platform, ContextImpl& context) const {
     CudaContext& cu = *static_cast<CudaPlatform::PlatformData*>(context.getPlatformData())->contexts[0];
-    if (name == IntegrateMmvtLangevinStepKernel::Name())
-        return new CudaIntegrateMmvtLangevinStepKernel(name, platform, cu);
-    if (name == IntegrateElberLangevinStepKernel::Name())
-        return new CudaIntegrateElberLangevinStepKernel(name, platform, cu);
+    //if (name == IntegrateMmvtLangevinStepKernel::Name())
+    //    return new CudaIntegrateMmvtLangevinStepKernel(name, platform, cu);
+    //if (name == IntegrateElberLangevinStepKernel::Name())
+    //    return new CudaIntegrateElberLangevinStepKernel(name, platform, cu);
     if (name == IntegrateMmvtLangevinMiddleStepKernel::Name())
         return new CudaIntegrateMmvtLangevinMiddleStepKernel(name, platform, cu);
     if (name == IntegrateElberLangevinMiddleStepKernel::Name())

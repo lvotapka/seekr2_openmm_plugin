@@ -100,7 +100,6 @@ extern "C" __global__ void integrateMmvtLangevinMiddlePart3(int numAtoms,
     }
 }
 
-
 extern "C" __global__ void integrateElberLangevinMiddlePart1(int numAtoms, 
             int paddedNumAtoms, mixed4* __restrict__ velm, 
             const long long* __restrict__ force, 

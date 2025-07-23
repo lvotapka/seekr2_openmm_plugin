@@ -219,7 +219,7 @@ $ make test
 You can test your installation by opening Python and typing:
 
 ```
->>> from seekr2plugin import MmvtLangevinIntegrator
+>>> from seekr2plugin import MmvtLangevinMiddleIntegrator
 ```
 
 If the import completes without error, the installation should have been 
@@ -229,12 +229,17 @@ successful.
 
 ## MMVT LANGEVIN INTEGRATOR:
 
+NOTE: starting from version 0.1.7, to follow changes in the latest versions
+of OpenMM, the ordinary Langevin integrator (named MmvtLangevinIntegrator) 
+is no longer supported, and instead, the Middle Langevin integrator (named 
+MmvtLangevinMiddleIntegrator) will be exclusively supported and used. 
+
 Using SEEKR2 first requires one to define an integrator object, and we will 
-start by describine the MmvtLangevinIntegrator object. An initialization of 
+start by describine the MmvtLangevinMiddleIntegrator object. An initialization of 
 the object is called using the following syntax:
 
-MmvtLangevinIntegrator(temperature, frictionCoefficient, timeStep, 
-                       crossingsFileName)
+MmvtLangevinMiddleIntegrator(temperature, frictionCoefficient, timeStep, 
+                             crossingsFileName)
 
 Where temperature, frictionCoefficient, and timeStep are the same parameters 
 that would be passed to OpenMM's LangevinIntegrator object.
@@ -261,12 +266,17 @@ The integrator object has a number of methods, the most important of which are:
 
 ## ELBER LANGEVIN INTEGRATOR:
 
+NOTE: starting from version 0.1.7, to follow changes in the latest versions
+of OpenMM, the ordinary Langevin integrator (named ElberLangevinIntegrator) 
+is no longer supported, and instead, the Middle Langevin integrator (named 
+ElberLangevinMiddleIntegrator) will be exclusively supported and used. 
+
 An integrator designed to perform Elber milestoning is also provided as an
 alternative to MMVT milestoning. Like the MMVT integrator, the Elber
 integrator is initialized according to the following syntax:
 
-ElberLangevinIntegrator(temperature, frictionCoefficient, timeStep, 
-                       crossingsFileName)
+ElberLangevinMiddleIntegrator(temperature, frictionCoefficient, timeStep, 
+                              crossingsFileName)
 
 Where temperature, frictionCoefficient, and timeStep are the same parameters 
 that would be passed to OpenMM's LangevinIntegrator object.

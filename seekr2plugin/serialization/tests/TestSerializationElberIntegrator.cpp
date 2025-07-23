@@ -33,7 +33,6 @@
 
 #include "openmm/Platform.h"
 #include "openmm/internal/AssertionUtilities.h"
-#include "ElberLangevinIntegrator.h"
 #include "ElberLangevinMiddleIntegrator.h"
 #include "openmm/serialization/XmlSerializer.h"
 #include <iostream>
@@ -44,32 +43,6 @@ using namespace Seekr2Plugin;
 using namespace std;
 
 extern "C" void registerElberSerializationProxies();
-
-void testSerialization() {
-    // Create an Integrator.
-
-    ElberLangevinIntegrator integ1(301.1, 0.95, 0.001, "/tmp/dummy.txt");
-    integ1.setRandomNumberSeed(18);
-    integ1.addSrcMilestoneGroup(4);
-    integ1.addDestMilestoneGroup(5);
-    integ1.setSaveStateFileName("/tmp/dummyState.txt");
-
-    // Serialize and then deserialize it.
-
-    stringstream buffer;
-    XmlSerializer::serialize<ElberLangevinIntegrator>(&integ1, "Integrator", buffer);
-    ElberLangevinIntegrator* copy = XmlSerializer::deserialize<ElberLangevinIntegrator>(buffer);
-
-    // Compare the two integrators to see if they are identical.
-    
-    ElberLangevinIntegrator& integ2 = *copy;
-    ASSERT_EQUAL(integ1.getTemperature(), integ2.getTemperature());
-    ASSERT_EQUAL(integ1.getFriction(), integ2.getFriction());
-    ASSERT_EQUAL(integ1.getRandomNumberSeed(), integ2.getRandomNumberSeed());
-    ASSERT_EQUAL(integ1.getSrcMilestoneGroup(0), integ2.getSrcMilestoneGroup(0));
-    ASSERT_EQUAL(integ1.getDestMilestoneGroup(0), integ2.getDestMilestoneGroup(0));
-    ASSERT_EQUAL(integ1.getSaveStateFileName(), integ2.getSaveStateFileName());
-}
 
 void testSerializationMiddle() {
     // Create an Integrator.
@@ -100,7 +73,6 @@ void testSerializationMiddle() {
 int main() {
     try {
         registerElberSerializationProxies();
-        testSerialization();
         testSerializationMiddle();
     }
     catch(const exception& e) {

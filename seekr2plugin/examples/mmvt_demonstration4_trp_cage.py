@@ -2,7 +2,7 @@ from simtk.openmm.app import *
 from simtk.openmm import *
 from simtk.unit import *
 from sys import stdout
-from seekr2plugin import MmvtLangevinIntegrator, vectori, vectord
+from seekr2plugin import MmvtLangevinMiddleIntegrator, vectori, vectord
 import seekr2plugin
 from time import time
 import numpy as np
@@ -50,7 +50,7 @@ myforce2.addPerBondParameter('radius')
 myforce2.addBond([mygroup1b, mygroup2b, mygroup3b, mygroup4b, mygroup5b, mygroup6b], [1.0e-9*kilojoules_per_mole, 7.0*angstroms])
 forcenum2 = system.addForce(myforce2)
 
-integrator = MmvtLangevinIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, "trp_cage_filename.txt")
+integrator = MmvtLangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.002*picoseconds, "trp_cage_filename.txt")
 integrator.addMilestoneGroup(1)
 integrator.addMilestoneGroup(2)
 
